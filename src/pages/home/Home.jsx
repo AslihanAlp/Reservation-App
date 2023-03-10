@@ -3,9 +3,12 @@ import Navbar from "../../components/Navbar"
 import Featured from "../../components/Featured"
 import PropertyList from "../../components/PropertyList"
 import FeaturedProperties from "../../components/FeaturedProperties"
+import MailList from "../../components/MailList"
+import Footer from "../../components/Footer"
 
 function Home() {
-  return (
+
+ return (
     <div>
     <Navbar />
     <Header />
@@ -13,8 +16,10 @@ function Home() {
     <Featured />
     <div className="max-w-[1024px] font-bold text-xl">Browse by property type</div>
     <PropertyList />
-    <div>Homes guest love</div>
+    <div className="max-w-[1024px] font-bold text-xl">Homes guest love</div>
     <FeaturedProperties />
+    <MailList />
+    <Footer/>
     </div>
     </div>
   )

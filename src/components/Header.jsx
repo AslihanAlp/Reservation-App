@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBed, faPlane, faTaxi, faCar, faMap, faCalendarDays, faPerson } from "@fortawesome/free-solid-svg-icons"
 import { DateRange } from "react-date-range"
@@ -8,6 +9,7 @@ import {format} from "date-fns";
 
 
 function Header({type}) {
+    const [destination, setDestination ] = useState("")
     const [openDate, setOpenDate]= useState(false)
     const [date, setDate] =useState([
         {
@@ -23,6 +25,8 @@ function Header({type}) {
         room:1
     })
 
+   const navigate = useNavigate()
+
     const handleOption =(name, operation) =>{
         setOptions((prev)=>{
             return{
@@ -31,7 +35,9 @@ function Header({type}) {
             }
         })
     }
-
+    const handleSearch=()=>{
+        navigate("/hotels", {state: {destination, date, options}})
+    }
 
   return (
     <div className='bg-[#003580] text-white flex justify-center relative'> 
@@ -68,7 +74,8 @@ function Header({type}) {
             <div className="h-[30px] bg-white text-gray-400 px-[10px] ml-[40px] mb-4 absolute bottom-[-45px] w-[100%] max-w-[1024px] flex items-center justify-between py-[30px]  border-[3px] border-solid border-[#febb02] ">
                 <div className="flex items-center gap-3">
                     <FontAwesomeIcon className="" icon={faBed } />
-                    <input  className="border-none" placeholder="Where are you going" type="text"></input>
+                    <input onChange={e=>setDestination(e.target.value)} 
+                    className="border-none" placeholder="Where are you going" type="text"></input>
                 </div>
                 <div className="flex items-center gap-3">
                     <FontAwesomeIcon icon={faCalendarDays } />
@@ -79,6 +86,7 @@ function Header({type}) {
                     editableDateInputs={true}
                     onChange={item => setDate([item.section])}
                     moveRangeOnFirstSelection={false}
+                   
                     ranges={date}
                      />
                      }
@@ -136,7 +144,7 @@ function Header({type}) {
                  }
                  </div>
                  <div className="w-[100px] h-10 border text-white  border-[#0071c3] bg-[#0071c3] cursor-pointer">
-                 <button className="mx-auto pt-[5px] font-bold flex items-center" >Search</button>
+                 <button className="mx-auto pt-[5px] font-bold flex items-center" onClick={handleSearch} >Search</button>
                  </div>
             </div>
             </>
